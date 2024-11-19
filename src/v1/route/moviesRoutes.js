@@ -6,7 +6,7 @@ router.get("/", movieController.getAllMovies);
 
 router.get("/:id", movieController.getMovieById);
 
-router.post("/:id", movieController.createMovie);
+router.post("/", movieController.createMovie);
 
 router.patch("/:id", movieController.updateMovieById);
 

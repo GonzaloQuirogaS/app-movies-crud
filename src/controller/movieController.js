@@ -11,8 +11,48 @@ const getMovieById = (req, res) => {
 };
 
 const createMovie = (req, res) => {
-  const createdMovie = movieService.createMovie(req.params.id);
-  res.send("Create movie");
+  const { body } = req;
+
+  //Verificar que no haya errores
+  //Clausula de cierre
+  if (
+    !body.title ||
+    !body.year ||
+    !body.runtime ||
+    !body.genres ||
+    !body.director ||
+    !body.actors ||
+    !body.plot ||
+    !body.posterUrl
+  ) {
+    res.status(400).send({
+      status: "FAILED",
+      data: {
+        error:
+          "One of the following keys is missing or is empty in request body: 'year', 'runtime', 'genres', 'director', 'actors','plot','posterUrl'",
+      },
+    });
+  }
+
+  const newMovie = {
+    title: body.title,
+    year: body.year,
+    runtime: body.runtime,
+    genres: body.genres,
+    director: body.director,
+    actors: body.actors,
+    plot: body.plot,
+    posterUrl: body.posterUrl,
+  };
+
+  try {
+    const createdMovie = movieService.createMovie(newMovie);
+    res.status(201).send({ status: "OK", data: createdMovie });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILDED", data: { error: error?.message || error } });
+  }
 };
 
 const updateMovieById = (req, res) => {

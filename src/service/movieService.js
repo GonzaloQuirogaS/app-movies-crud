@@ -1,4 +1,5 @@
 const Movie = require("../database/Movie");
+const { v4: uuid } = require("uuid");
 
 const getAllMovies = () => {
   const allMovies = Movie.getAllMovies();
@@ -7,9 +8,21 @@ const getAllMovies = () => {
 const getMovieById = () => {
   return;
 };
-const createMovie = () => {
-  return;
+
+const createMovie = (newMovie) => {
+  const movieToInsert = {
+    id: uuid(),
+    ...newMovie,
+  };
+
+  try {
+    const createdMovie = Movie.createMovie(movieToInsert);
+    return createdMovie;
+  } catch (error) {
+    throw error;
+  }
 };
+
 const updateMovieById = () => {
   return;
 };
@@ -19,4 +32,5 @@ const deleteMovieById = () => {
 
 module.exports = {
   getAllMovies,
+  createMovie,
 };
