@@ -2,7 +2,7 @@ const movieService = require("../service/movieService");
 
 const getAllMovies = (req, res) => {
   const allMovies = movieService.getAllMovies();
-  res.send("Get all movies");
+  res.send({ status: "OK", data: allMovies });
 };
 
 const getMovieById = (req, res) => {

@@ -1,5 +1,8 @@
+const Movie = require("../database/Movie");
+
 const getAllMovies = () => {
-  return;
+  const allMovies = Movie.getAllMovies();
+  return allMovies;
 };
 const getMovieById = () => {
   return;
@@ -12,4 +15,8 @@ const updateMovieById = () => {
 };
 const deleteMovieById = () => {
   return;
+};
+
+module.exports = {
+  getAllMovies,
 };
