@@ -5,8 +5,14 @@ const getAllMovies = () => {
   const allMovies = Movie.getAllMovies();
   return allMovies;
 };
-const getMovieById = () => {
-  return;
+
+const getMovieById = (id) => {
+  try {
+    const movie = Movie.getMovieById(id);
+    return movie;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createMovie = (newMovie) => {
@@ -33,4 +39,5 @@ const deleteMovieById = () => {
 module.exports = {
   getAllMovies,
   createMovie,
+  getMovieById,
 };

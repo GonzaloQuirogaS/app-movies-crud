@@ -26,7 +26,23 @@ const createMovie = (newMovie) => {
   }
 };
 
+const getMovieById = (id) => {
+  try {
+    const movie = DB.movies.find((movie) => movie.id == id);
+    if (!movie) {
+      throw {
+        status: 400,
+        message: `Can't find movie with the id '${id}'`,
+      };
+    }
+    return movie;
+  } catch (error) {
+    throw { status: 500, message: error?.message || error };
+  }
+};
+
 module.exports = {
   getAllMovies,
   createMovie,
+  getMovieById,
 };

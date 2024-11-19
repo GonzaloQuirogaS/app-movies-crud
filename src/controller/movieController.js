@@ -6,8 +6,26 @@ const getAllMovies = (req, res) => {
 };
 
 const getMovieById = (req, res) => {
-  const movie = movieService.getMovieById(req.params.id);
-  res.send("Get movie by ID");
+  const {
+    params: { id },
+  } = req;
+
+  if (!id) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':id' can not be empty" },
+    });
+    return;
+  }
+
+  try {
+    const movie = movieService.getMovieById(id);
+    res.send({ status: "OK", data: movie });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 const createMovie = (req, res) => {
