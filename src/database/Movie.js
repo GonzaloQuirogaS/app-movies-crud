@@ -41,8 +41,28 @@ const getMovieById = (id) => {
   }
 };
 
+const deleteMovieById = (id) => {
+  try {
+    const index = DB.movies.findIndex((movie) => movie.id == id);
+
+    if (index === -1) {
+      throw {
+        status: 400,
+        message: `Can't find movie with the id '${id}'`,
+      };
+    }
+
+    DB.movies.splice(index, 1);
+    saveToDb(DB);
+  } catch (error) {
+    throw { status: 500, message: error?.message || error };
+  }
+  return;
+};
+
 module.exports = {
   getAllMovies,
   createMovie,
   getMovieById,
+  deleteMovieById,
 };

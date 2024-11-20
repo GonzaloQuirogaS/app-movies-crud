@@ -79,8 +79,26 @@ const updateMovieById = (req, res) => {
 };
 
 const deleteMovieById = (req, res) => {
-  movieService.deleteMovieById(req.params.id);
-  res.send("Delete movie");
+  const {
+    params: { id },
+  } = req;
+
+  if (!id) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':id' can not be empty" },
+    });
+    return;
+  }
+
+  try {
+    movieService.deleteMovieById(id);
+    res.send({ status: "OK" });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
 };
 
 module.exports = {
