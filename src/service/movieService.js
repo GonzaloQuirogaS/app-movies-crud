@@ -29,8 +29,13 @@ const createMovie = (newMovie) => {
   }
 };
 
-const updateMovieById = () => {
-  return;
+const updateMovieById = (id, changes) => {
+  try {
+    const updatedMovie = Movie.updateMovieById(id, changes);
+    return updatedMovie;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleteMovieById = (id) => {
@@ -47,5 +52,6 @@ module.exports = {
   getAllMovies,
   createMovie,
   getMovieById,
+  updateMovieById,
   deleteMovieById,
 };

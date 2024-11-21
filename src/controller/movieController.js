@@ -74,7 +74,28 @@ const createMovie = (req, res) => {
 };
 
 const updateMovieById = (req, res) => {
-  const updateMovie = movieService.updateMovieById(req.params.id);
+  const {
+    body,
+    params: { id },
+  } = req;
+
+  if (!id) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':id' can not be empty" },
+    });
+    return;
+  }
+
+  try {
+    const updatedMovie = movieService.updateMovieById(id, body);
+    res.send({ status: "OK", data: updatedMovie });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
+
   res.send("Update movie");
 };
 
