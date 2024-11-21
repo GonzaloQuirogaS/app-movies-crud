@@ -6,10 +6,10 @@ router.get("/", movieController.getAllMovies);
 
 router.get("/:id", movieController.getMovieById);
 
-router.post("/", movieController.createMovie);
+router.post("/create", movieController.createMovie);
 
-router.patch("/:id", movieController.updateMovieById);
+router.patch("/update/:id", movieController.updateMovieById);
 
-router.delete("/:id", movieController.deleteMovieById);
+router.delete("/delete/:id", movieController.deleteMovieById);
 
 module.exports = router;

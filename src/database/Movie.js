@@ -43,16 +43,6 @@ const getMovieById = (id) => {
 
 const updateMovieById = (id, changes) => {
   try {
-    const isAlreadyAdded =
-      DB.movies.findIndex((movie) => movie.title === changes.title) > -1;
-
-    if (isAlreadyAdded) {
-      throw {
-        status: 400,
-        message: `Movie with the title '${changes.title}' already exists`,
-      };
-    }
-
     const index = DB.movies.findIndex((movie) => movie.id == id);
 
     if (index === -1) {
